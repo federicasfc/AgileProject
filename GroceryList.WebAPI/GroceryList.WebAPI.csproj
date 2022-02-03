@@ -8,4 +8,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GroceryList.Service\GroceryList.Service.csproj" />
+    <ProjectReference Include="..\GroceryList.Models\GroceryList.Models.csproj" />
+    <ProjectReference Include="..\GroceryList.Data\GroceryList.Data.csproj" />
+  </ItemGroup>
+
 </Project>
