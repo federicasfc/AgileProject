@@ -3,14 +3,16 @@ using GroceryList.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GroceryList.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220204170126_TakingOutJT")]
+    partial class TakingOutJT
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,34 +74,53 @@ namespace GroceryList.Data.Migrations
                     b.ToTable("Recipes");
                 });
 
-            modelBuilder.Entity("IngredientEntityRecipeEntity", b =>
+            modelBuilder.Entity("GroceryList.Data.Entities.RecipeIngredientJTEntity", b =>
                 {
-                    b.Property<int>("IngredientsId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("IngredientId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RecipesId")
+                    b.Property<int>("QuantityOfIngredient")
                         .HasColumnType("int");
 
-                    b.HasKey("IngredientsId", "RecipesId");
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("RecipesId");
+                    b.HasKey("Id");
 
-                    b.ToTable("IngredientEntityRecipeEntity");
+                    b.HasIndex("IngredientId");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("RecipeIngredientJTEntity");
                 });
 
-            modelBuilder.Entity("IngredientEntityRecipeEntity", b =>
+            modelBuilder.Entity("GroceryList.Data.Entities.RecipeIngredientJTEntity", b =>
                 {
-                    b.HasOne("GroceryList.Data.Entities.IngredientEntity", null)
+                    b.HasOne("GroceryList.Data.Entities.IngredientEntity", "Ingredient")
                         .WithMany()
-                        .HasForeignKey("IngredientsId")
+                        .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GroceryList.Data.Entities.RecipeEntity", null)
-                        .WithMany()
-                        .HasForeignKey("RecipesId")
+                    b.HasOne("GroceryList.Data.Entities.RecipeEntity", "Recipe")
+                        .WithMany("Ingredients")
+                        .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Ingredient");
+
+                    b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("GroceryList.Data.Entities.RecipeEntity", b =>
+                {
+                    b.Navigation("Ingredients");
                 });
 #pragma warning restore 612, 618
         }
