@@ -13,7 +13,7 @@ namespace GroceryList.Data
         { }
         public DbSet<RecipeEntity> Recipes { get; set; }
 
-        public DbSet<RecipeIngredientJTEntity> RecipeIngredients { get; set; }
+        //public DbSet<RecipeIngredientJTEntity> RecipeIngredients { get; set; } //Add migration with commented out line and then add ICollections to both tables.
 
         public DbSet<IngredientEntity> Ingredients { get; set; }
 

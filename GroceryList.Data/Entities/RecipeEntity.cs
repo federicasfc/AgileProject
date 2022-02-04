@@ -22,9 +22,9 @@ namespace GroceryList.Data.Entities
 
         public int CookTimeInMinutes { get; set; }
 
-        [Required]
+        //FK 
 
-        public List<RecipeIngredientJTEntity> Ingredients { get; set; }
+        public ICollection<IngredientEntity> Ingredients { get; set; }
 
 
 

@@ -40,5 +40,10 @@ namespace GroceryList.Data.Entities
         public Allergens Allergens { get; set; }
         public bool IsAnimalProduct { get; set; }
         public bool IsCarb { get; set; }
+
+        //FK reference
+        public ICollection<RecipeEntity> Recipes { get; set; }
+
+
     }
 }
