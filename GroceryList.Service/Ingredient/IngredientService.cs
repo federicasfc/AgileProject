@@ -29,7 +29,10 @@ namespace GroceryList.Service.Ingredient
             var ingredientEntity = new IngredientEntity
             {
                 Name = request.Name,
-                FoodCategory = request.FoodCategory,
+                FoodCategory = (FoodCategory)Enum.Parse(typeof(FoodCategory), request.FoodCategory)
+                // line above worked as "FoodCategory = request.FoodCategory" multiple times before and immediately after merge
+                // then started throwing an error as I was working on something else saying "cannot implicitly convert type"
+                // tried parsing into an enum assuming that it was receiving a string, couldn't get it to work
             };
 
             _dbContext.Ingredients.Add(ingredientEntity);
@@ -48,6 +51,24 @@ namespace GroceryList.Service.Ingredient
                     Name = entity.Name
                 }).ToListAsync();
             return ingredients;
+        }
+
+        // GetIngredientByName method
+        public async Task<IngredientDetail> GetIngredientByNameAsync(string ingredientName)
+        {
+            var ingredientEntity = await _dbContext.Ingredients
+                .FirstOrDefaultAsync(e => e.Name == ingredientName);
+            
+            return ingredientEntity is null ? null : new IngredientDetail
+            {
+                Id = ingredientEntity.Id,
+                Name = ingredientEntity.Name,
+                FoodCategory = ingredientEntity.FoodCategory,
+                Allergens = ingredientEntity.Allergens,
+                // same problem as CreateIngredient method and not sure why
+                IsAnimalProduct = ingredientEntity.IsAnimalProduct,
+                IsCarb = ingredientEntity.IsCarb
+            };
         }
     }
 }

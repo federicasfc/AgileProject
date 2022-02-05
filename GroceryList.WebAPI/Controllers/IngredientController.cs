@@ -46,5 +46,20 @@ namespace GroceryList.WebAPI.Controllers
             var ingredients = await _ingredientService.GetAllIngredientsAsync();
             return Ok(ingredients);
         }
+
+        //GetNoteById Endpoint
+
+        [HttpGet("{ingredientName:string}")]
+        public async Task<IActionResult> GetNoteById([FromRoute] string ingredientName)
+        {
+            var detail = await _ingredientService.GetIngredientByNameAsync(ingredientName);
+
+            return detail is not null
+            ? Ok(detail)
+            : NotFound();
+
+        }
+
+
     }
 }
