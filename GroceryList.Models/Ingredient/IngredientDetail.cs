@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GroceryList.Data.Entities
+namespace GroceryList.Models.Ingredient
 {
     public enum FoodCategory
     {
@@ -24,26 +23,15 @@ namespace GroceryList.Data.Entities
         Peanuts,
         Shellfish,
         Soy,
-        TreeNuts,
+        TreeNuts
     }
-    public class IngredientEntity
+    public class IngredientDetail
     {
-        [Key]
         public int Id { get; set; }
-
-        [Required]
         public string Name { get; set; }
-
-        [Required]
         public FoodCategory FoodCategory { get; set; }
-
         public Allergens Allergens { get; set; }
         public bool IsAnimalProduct { get; set; }
         public bool IsCarb { get; set; }
-
-        //FK reference
-        public ICollection<RecipeEntity> Recipes { get; set; }
-
-
     }
 }

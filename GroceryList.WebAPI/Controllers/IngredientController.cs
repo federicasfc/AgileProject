@@ -3,14 +3,63 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using GroceryList.Models.Ingredient;
+using GroceryList.Service.Ingredient;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace GroceryList.WebAPI.Controllers
 {
-    [Route("[controller]")]
+    [Route("api/[controller]")]
+    [ApiController]
     public class IngredientController : ControllerBase
     {
-        //Will contain Http endpoint methods connecting to Service methods
+        // field to access service methods
+        private readonly IIngredientService _ingredientService;
+
+        // contructor
+        public IngredientController(IIngredientService ingredientService)
+        {
+            _ingredientService = ingredientService;
+        }
+
+        //Post 
+        [HttpPost]
+        /* WORKS */
+        public async Task<IActionResult> CreateIngredient([FromForm] IngredientCreate request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (await _ingredientService.CreateIngredientAsync(request) == false)
+                return BadRequest("Ingredient could not be created."); 
+
+
+            return Ok("Ingredient created successfully");
+        }
+
+        // GetAllIngredients endpoint
+        [HttpGet]
+        /* WORKS */
+        public async Task<IActionResult> GetAllIngredients()
+        {
+            var ingredients = await _ingredientService.GetAllIngredientsAsync();
+            return Ok(ingredients);
+        }
+
+        //GetNoteById Endpoint
+
+        [HttpGet("{ingredientName:string}")]
+        public async Task<IActionResult> GetNoteById([FromRoute] string ingredientName)
+        {
+            var detail = await _ingredientService.GetIngredientByNameAsync(ingredientName);
+
+            return detail is not null
+            ? Ok(detail)
+            : NotFound();
+
+        }
+
+
     }
 }
