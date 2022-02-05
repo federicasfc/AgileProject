@@ -9,7 +9,9 @@ namespace GroceryList.Service.Ingredient
     public interface IIngredientService
     {
         Task<bool> CreateIngredientAsync(IngredientCreate request);
+
         Task<IEnumerable<IngredientListItem>> GetAllIngredientsAsync();
+        Task<IngredientDetail> GetIngredientByNameAsync(string ingredientName);
         
 
     }
