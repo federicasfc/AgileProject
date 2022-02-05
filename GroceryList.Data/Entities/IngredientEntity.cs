@@ -8,12 +8,12 @@ namespace GroceryList.Data.Entities
 {
     public enum FoodCategory
     {
-        Carb,
-        Dairy,
-        Fish,
-        Fruit,
-        Meat,
-        Vegetable
+        carb,
+        dairy,
+        fish,
+        fruit,
+        meat,
+        vegetable
     }
     public enum Allergens
     {

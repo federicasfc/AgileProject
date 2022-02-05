@@ -35,6 +35,7 @@ namespace GroceryList.WebAPI
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
+
             // Add Ingredient Service/Interface for Dependency Injection here
             services.AddScoped<IIngredientService, IngredientService>();
             services.AddScoped<IRecipeService, RecipeService>();
