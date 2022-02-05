@@ -1,32 +1,23 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using GroceryList.Data.Entities;
 
-namespace GroceryList.Data.Entities
+namespace GroceryList.Models.Recipe
 {
-    public class RecipeEntity
+    public class RecipeDetail
     {
-        [Key]
         public int Id { get; set; }
 
-        [Required]
         public string Name { get; set; }
 
         public string Description { get; set; }
-
-        [Required]
-
         public string Steps { get; set; }
 
         public int CookTimeInMinutes { get; set; }
 
-        //FK 
-
-        [Required]
-
-        public ICollection<IngredientEntity> Ingredients { get; set; }
+        public List<IngredientEntity> Ingredients { get; set; } = new List<IngredientEntity>();
 
 
 
