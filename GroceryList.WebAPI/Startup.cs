@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GroceryList.Data;
-using GroceryList.Service.Ingredient;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,9 +32,6 @@ namespace GroceryList.WebAPI
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
-
-            // Add Ingredient Service/Interface for Dependency Injection here
-            services.AddScoped<IIngredientService, IngredientService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
