@@ -18,7 +18,7 @@ namespace GroceryList.Models.Recipe
         public string Steps { get; set; }
 
         [Required]
-        //public List<RecipeIngredientJTEntity> Ingredients { get; set; } = new List<RecipeIngredientJTEntity>();
+
         public List<IngredientEntity> Ingredients { get; set; } = new List<IngredientEntity>();
     }
 }

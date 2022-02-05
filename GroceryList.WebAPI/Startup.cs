@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GroceryList.Data;
 using GroceryList.Service.Ingredient;
+using GroceryList.Service.Recipe;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +37,7 @@ namespace GroceryList.WebAPI
 
             // Add Ingredient Service/Interface for Dependency Injection here
             services.AddScoped<IIngredientService, IngredientService>();
+            services.AddScoped<IRecipeService, RecipeService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
