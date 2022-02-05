@@ -24,7 +24,7 @@ namespace GroceryList.Data.Entities
         Peanuts,
         Shellfish,
         Soy,
-        TreeNuts,
+        TreeNuts
     }
     public class IngredientEntity
     {
