@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GroceryList.Data.Entities;
+using GroceryList.Models.Ingredient;
 
 namespace GroceryList.Models.Recipe
 {
@@ -17,7 +18,7 @@ namespace GroceryList.Models.Recipe
 
         public int CookTimeInMinutes { get; set; }
 
-        public List<IngredientEntity> Ingredients { get; set; } = new List<IngredientEntity>();
+        public List<IngredientListItem> Ingredients { get; set; } //= new List<IngredientEntity>();
 
 
 

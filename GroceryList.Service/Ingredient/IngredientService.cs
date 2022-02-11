@@ -36,7 +36,7 @@ namespace GroceryList.Service.Ingredient
 
             var numberOfChanges = await _dbContext.SaveChangesAsync();
             return numberOfChanges == 1;
-        }
+        } //when enums are entered into the postman body, their numerical values have to be added
 
         // GetAllIngredients method
         public async Task<IEnumerable<IngredientListItem>> GetAllIngredientsAsync()
@@ -44,7 +44,7 @@ namespace GroceryList.Service.Ingredient
             var ingredients = await _dbContext.Ingredients
                 .Select(entity => new IngredientListItem
                 {
-                    Id = entity.Id,
+                    IngredientId = entity.IngredientId,
                     Name = entity.Name
                 }).ToListAsync();
             return ingredients;

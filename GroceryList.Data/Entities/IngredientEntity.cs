@@ -29,7 +29,7 @@ namespace GroceryList.Data.Entities
     public class IngredientEntity
     {
         [Key]
-        public int Id { get; set; }
+        public int IngredientId { get; set; }
 
         [Required]
         public string Name { get; set; }

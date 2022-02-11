@@ -13,5 +13,7 @@ namespace GroceryList.Service.Recipe
         Task<IEnumerable<RecipeListItem>> GetAllRecipesAsync();
 
         Task<RecipeDetail> GetRecipeByNameAsync(string recipeName);
+
+        Task<bool> AssignIngredientToRecipeAsync(int ingredientId, int recipeId);
     }
 }

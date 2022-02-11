@@ -17,8 +17,5 @@ namespace GroceryList.Models.Recipe
         [MaxLength(9000, ErrorMessage = "{0} must contain no more than {1} characters.")]
         public string Steps { get; set; }
 
-        [Required]
-
-        public List<IngredientEntity> Ingredients { get; set; } = new List<IngredientEntity>();
     }
 }

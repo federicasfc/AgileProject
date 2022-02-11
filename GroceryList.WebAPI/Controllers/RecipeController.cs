@@ -40,31 +40,7 @@ namespace GroceryList.WebAPI.Controllers
                 return BadRequest("Recipe could not be created");
 
             return Ok("Recipe created successfully");
-        } //does not work //Bad request 400- has to do with a syntax error on how to add enum values in postman probably
-
-        //For reference. This is what I added into the Postman body in raw Json:
-        /*
-        {
-             "Name": "Peanut Butter and Jelly Sandwich",
-            "Steps": "1. Get bread, PB, and Jelly, 2. Spread PB and Jelly on bread",
-             "Ingredients": 
-            [
-                {
-                     "Name":"Peanut Butter",
-                     "FoodCategory": "Carb"
-
-                },
-                 {
-                     "Name": "Jelly",
-                     "FoodCategory": "Fruit"
-                 },
-                {
-                     "Name": "Bread",
-                     "FoodCategory": "Carb"
-                }
-            ]
-        }
-        */
+        } //works
 
 
         //GetAllRecipes
@@ -89,8 +65,23 @@ namespace GroceryList.WebAPI.Controllers
                 return NotFound();
 
             return Ok(detail);
-        } //half works...I think; Getting a 404 NotFound back, which is exactly what is expected since there are no recipes in the Db yet
-          //Unable to test the full functionality until after issue with CreateRecipe is resolved
+        } //works
+
+
+        //AssignIngredientsToRecipe
+
+        [HttpPut("{ingredientId:int}/{recipeId:int}")]
+
+        public async Task<IActionResult> AssignIngredientToRecipe([FromRoute] int ingredientId, [FromRoute] int recipeId)
+        {
+            if (ingredientId == 0 || recipeId == 0)
+                return NotFound("Ingredient or Recipe could not be found");
+
+            if (await _recipeService.AssignIngredientToRecipeAsync(ingredientId, recipeId) == false)
+                return BadRequest("Ingredient could not be added to recipe");
+
+            return Ok($"Ingredient {ingredientId} added to Recipe {recipeId} ");
+        } //works
 
 
 

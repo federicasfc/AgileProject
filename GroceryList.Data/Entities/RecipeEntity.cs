@@ -9,7 +9,7 @@ namespace GroceryList.Data.Entities
     public class RecipeEntity
     {
         [Key]
-        public int Id { get; set; }
+        public int RecipeId { get; set; }
 
         [Required]
         public string Name { get; set; }
@@ -24,7 +24,6 @@ namespace GroceryList.Data.Entities
 
         //FK 
 
-        [Required]
 
         public ICollection<IngredientEntity> Ingredients { get; set; }
 

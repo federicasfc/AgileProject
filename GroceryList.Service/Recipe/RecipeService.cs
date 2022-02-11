@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GroceryList.Data;
 using GroceryList.Data.Entities;
+using GroceryList.Models.Ingredient;
 using GroceryList.Models.Recipe;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,7 +31,7 @@ namespace GroceryList.Service.Recipe
             {
                 Name = request.Name,
                 Steps = request.Steps,
-                Ingredients = request.Ingredients
+                //Ingredients = request.Ingredients
             };
 
             _dbContext.Recipes.Add(recipeEntity);
@@ -47,7 +48,7 @@ namespace GroceryList.Service.Recipe
             var recipes = await _dbContext.Recipes
             .Select(entity => new RecipeListItem
             {
-                Id = entity.Id,
+                Id = entity.RecipeId,
                 Name = entity.Name
             }).ToListAsync();
 
@@ -63,14 +64,41 @@ namespace GroceryList.Service.Recipe
 
             return recipeEntity is null ? null : new RecipeDetail
             {
-                Id = recipeEntity.Id,
+                Id = recipeEntity.RecipeId,
                 Name = recipeEntity.Name,
                 Description = recipeEntity.Description,
                 Steps = recipeEntity.Steps,
                 CookTimeInMinutes = recipeEntity.CookTimeInMinutes,
-                Ingredients = recipeEntity.Ingredients.ToList() //Genuinely not sure if this works the way I want it to, but it cleared by error of "cannot convert type"
+                Ingredients = recipeEntity.Ingredients.Select(entity => new IngredientListItem()
+                {
+                    IngredientId = entity.IngredientId,
+                    Name = entity.Name
+
+                }).ToList()
             };
 
+
+        }
+
+        //AssignIngredientsToRecipe
+
+        public async Task<bool> AssignIngredientToRecipeAsync(int ingredientId, int recipeId)
+        {
+            var ingredientToAdd = await _dbContext.Ingredients.FindAsync(ingredientId);
+
+            if (ingredientToAdd is null)
+                return false;
+
+            var recipeToAddTo = await _dbContext.Recipes.Include(r => r.Ingredients).FirstOrDefaultAsync(r => r.RecipeId == recipeId);
+
+            if (recipeToAddTo is null)
+                return false;
+
+            recipeToAddTo.Ingredients.Add(ingredientToAdd);
+
+            var numberOfChanges = await _dbContext.SaveChangesAsync();
+
+            return numberOfChanges == 1;
         }
     }
 }

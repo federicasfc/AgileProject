@@ -17,7 +17,7 @@ namespace GroceryList.WebAPI.Controllers
         // field to access service methods
         private readonly IIngredientService _ingredientService;
 
-        // contructor
+        // constructor
         public IngredientController(IIngredientService ingredientService)
         {
             _ingredientService = ingredientService;
@@ -26,17 +26,17 @@ namespace GroceryList.WebAPI.Controllers
         //Post 
         [HttpPost]
         /* WORKS */
-        public async Task<IActionResult> CreateIngredient([FromForm] IngredientCreate request)
+        public async Task<IActionResult> CreateIngredient([FromBody] IngredientCreate request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             if (await _ingredientService.CreateIngredientAsync(request) == false)
-                return BadRequest("Ingredient could not be created."); 
+                return BadRequest("Ingredient could not be created.");
 
 
             return Ok("Ingredient created successfully");
-        }
+        } //works
 
         // GetAllIngredients endpoint
         [HttpGet]
@@ -45,6 +45,6 @@ namespace GroceryList.WebAPI.Controllers
         {
             var ingredients = await _ingredientService.GetAllIngredientsAsync();
             return Ok(ingredients);
-        }
+        } //works
     }
 }
